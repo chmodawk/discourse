@@ -5,7 +5,7 @@ import { needsSecondRowIf } from 'discourse/components/header-extra-info';
 import { addBulkButton } from 'discourse/controllers/topic-bulk-actions';
 import TopicBulkActionsController from 'discourse/controllers/topic-bulk-actions';
 import registerUnbound from 'discourse/helpers/register-unbound';
-import renderTag from 'discourse/plugins/discourse-tagging/lib/render-tag';
+import renderTag from 'discourse/lib/render-tag';
 import Topic from 'discourse/models/topic';
 import Composer from 'discourse/models/composer';
 

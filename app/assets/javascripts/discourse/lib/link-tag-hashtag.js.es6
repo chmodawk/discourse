@@ -1,5 +1,5 @@
 import { replaceSpan } from 'discourse/lib/category-hashtags';
-import { TAG_HASHTAG_POSTFIX } from 'discourse/plugins/discourse-tagging/lib/tag-hashtags';
+import { TAG_HASHTAG_POSTFIX } from 'discourse/lib/tag-hashtags';
 
 const validTagHashtags = {};
 const checkedTagHashtags = [];

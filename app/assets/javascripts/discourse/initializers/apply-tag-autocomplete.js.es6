@@ -1,10 +1,10 @@
 import DEditor from 'discourse/components/d-editor';
 import ComposerEditor from 'discourse/components/composer-editor';
 import { categoryHashtagTriggerRule, SEPARATOR } from 'discourse/lib/category-hashtags';
-import { search as searchCategoryTag  } from 'discourse/plugins/discourse-tagging/lib/category-tag-search';
+import { search as searchCategoryTag  } from 'discourse/lib/category-tag-search';
 import Category from 'discourse/models/category';
-import { fetchUnseenTagHashtags, linkSeenTagHashtags } from 'discourse/plugins/discourse-tagging/lib/link-tag-hashtag';
-import { TAG_HASHTAG_POSTFIX } from 'discourse/plugins/discourse-tagging/lib/tag-hashtags';
+import { fetchUnseenTagHashtags, linkSeenTagHashtags } from 'discourse/lib/link-tag-hashtag';
+import { TAG_HASHTAG_POSTFIX } from 'discourse/lib/tag-hashtags';
 import { linkSeenCategoryHashtags, fetchUnseenCategoryHashtags } from 'discourse/lib/link-category-hashtags';
 import { on } from 'ember-addons/ember-computed-decorators';
 

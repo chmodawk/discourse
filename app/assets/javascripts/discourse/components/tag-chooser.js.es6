@@ -1,4 +1,4 @@
-import renderTag from 'discourse/plugins/discourse-tagging/lib/render-tag';
+import renderTag from 'discourse/lib/render-tag';
 
 function formatTag(t) {
   return renderTag(t.id, {count: t.count});
