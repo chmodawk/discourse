@@ -3,9 +3,11 @@
 {{/if}}
 {{bound-category-link topic.category hideParent=true}}
 {{#if siteSettings.tagging_enabled}}
-  {{#each t in topic.tags}}
-    {{discourse-tag t}}
-  {{/each}}
+  <div class="list-tags">
+    {{#each t in topic.tags}}
+      {{discourse-tag t}}
+    {{/each}}
+  </div>
 {{/if}}
 
 {{plugin-outlet "topic-category"}}
