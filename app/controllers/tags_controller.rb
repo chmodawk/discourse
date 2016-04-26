@@ -5,6 +5,8 @@ require_dependency 'topic_query'
 class TagsController < ::ApplicationController
   include TopicListResponder
 
+  before_filter :ensure_tags_enabled
+
   skip_before_filter :check_xhr, only: [:tag_feed, :show]
   before_filter :ensure_logged_in, only: [:notifications, :update_notifications, :update]
   before_filter :set_category_from_params, except: [:index, :update, :destroy, :tag_feed, :search, :notifications, :update_notifications]
@@ -132,6 +134,10 @@ class TagsController < ::ApplicationController
   end
 
   private
+
+    def ensure_tags_enabled
+      raise Discourse::NotFound unless SiteSetting.tagging_enabled?
+    end
 
     def self.tags_by_count(guardian, opts=nil)
       opts = opts || {}
