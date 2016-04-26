@@ -2706,6 +2706,7 @@ en:
           login: "Login"
           plugins: "Plugins"
           user_preferences: "User Preferences"
+          tags: "Tags"
 
       badges:
         title: Badges
