@@ -43,7 +43,7 @@ class TagsController < ::ApplicationController
       @rss = "tag"
 
 
-      if @list.topics.size == 0 && !TopicCustomField.where(name: TAGS_FIELD_NAME, value: @tag_id).exists?
+      if @list.topics.size == 0 && !TopicCustomField.where(name: DiscourseTagging::TAGS_FIELD_NAME, value: @tag_id).exists?
         raise Discourse::NotFound
       else
         respond_with_list(@list)
@@ -58,9 +58,9 @@ class TagsController < ::ApplicationController
   def update
     guardian.ensure_can_admin_tags!
 
-    new_tag_id = ::DiscourseTagging.clean_tag(params[:tag][:id])
+    new_tag_id = DiscourseTagging.clean_tag(params[:tag][:id])
     if current_user.staff?
-      ::DiscourseTagging.rename_tag(current_user, params[:tag_id], new_tag_id)
+      DiscourseTagging.rename_tag(current_user, params[:tag_id], new_tag_id)
     end
     render json: { tag: { id: new_tag_id }}
   end
@@ -69,7 +69,7 @@ class TagsController < ::ApplicationController
     guardian.ensure_can_admin_tags!
     tag_id = params[:tag_id]
     TopicCustomField.transaction do
-      TopicCustomField.where(name: TAGS_FIELD_NAME, value: tag_id).delete_all
+      TopicCustomField.where(name: DiscourseTagging::TAGS_FIELD_NAME, value: tag_id).delete_all
       UserCustomField.delete_all(name: ::DiscourseTagging.notification_key(tag_id))
       StaffActionLogger.new(current_user).log_custom('deleted_tag', subject: tag_id)
     end
@@ -86,7 +86,7 @@ class TagsController < ::ApplicationController
     @atom_link = "#{Discourse.base_url}/tags/#{tag_id}.rss"
 
     query = TopicQuery.new(current_user)
-    topics_tagged = TopicCustomField.where(name: TAGS_FIELD_NAME, value: tag_id).pluck(:topic_id)
+    topics_tagged = TopicCustomField.where(name: DiscourseTagging::TAGS_FIELD_NAME, value: tag_id).pluck(:topic_id)
     latest_results = query.latest_results.where(id: topics_tagged)
     @topic_list = query.create_list(:by_tag, {}, latest_results)
 
@@ -124,7 +124,7 @@ class TagsController < ::ApplicationController
   def check_hashtag
     tag_values = params[:tag_values].each(&:downcase!)
 
-    valid_tags = TopicCustomField.where(name: TAGS_FIELD_NAME, value: tag_values).map do |tag|
+    valid_tags = TopicCustomField.where(name: DiscourseTagging::TAGS_FIELD_NAME, value: tag_values).map do |tag|
       { value: tag.value, url: "#{Discourse.base_url}/tags/#{tag.value}" }
     end.compact
 
@@ -135,7 +135,7 @@ class TagsController < ::ApplicationController
 
     def self.tags_by_count(guardian, opts=nil)
       opts = opts || {}
-      result = TopicCustomField.where(name: TAGS_FIELD_NAME)
+      result = TopicCustomField.where(name: DiscourseTagging::TAGS_FIELD_NAME)
                                .joins(:topic)
                                .group(:value)
                                .limit(opts[:limit] || 5)
