@@ -17,10 +17,10 @@ class TagsController < ::ApplicationController
 
   Discourse.filters.each do |filter|
     define_method("show_#{filter}") do
-      @tag_id = ::DiscourseTagging.clean_tag(params[:tag_id])
+      @tag_id = DiscourseTagging.clean_tag(params[:tag_id])
 
       # TODO PERF: doesn't scale:
-      topics_tagged = TopicCustomField.where(name: TAGS_FIELD_NAME, value: @tag_id).pluck(:topic_id)
+      topics_tagged = TopicCustomField.where(name: DiscourseTagging::TAGS_FIELD_NAME, value: @tag_id).pluck(:topic_id)
 
       page = params[:page].to_i
 

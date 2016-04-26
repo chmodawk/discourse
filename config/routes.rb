@@ -606,7 +606,7 @@ Discourse::Application.routes.draw do
   get "manifest.json" => "metadata#manifest", as: :manifest
   get "opensearch" => "metadata#opensearch", format: :xml
 
-  namespace :tags do
+  scope "/tags" do
     get '/' => 'tags#index'
     get '/filter/list' => 'tags#index'
     get '/filter/search' => 'tags#search'
