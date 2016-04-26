@@ -11,9 +11,9 @@
   {{#if controller.showTopicPostBadges}}
     {{raw "topic-post-badges" unread=topic.unread newPosts=topic.displayNewPosts unseen=topic.unseen url=topic.lastUnreadUrl}}
   {{/if}}
-  {{#if context.topic.tags}}
+  {{#if topic.tags}}
     <div class='discourse-tags'>
-    {{#each tag in context.topic.visibleListTags}}
+    {{#each tag in topic.visibleListTags}}
       {{discourse-tag tag}}
     {{/each}}
     </div>
