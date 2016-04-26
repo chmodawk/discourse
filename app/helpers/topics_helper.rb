@@ -19,7 +19,7 @@ module TopicsHelper
       tags.each do |tag|
         tag_id = DiscourseTagging.clean_tag(tag)
         url = "#{Discourse.base_url}/tags/#{tag_id}"
-        breadcrumbs << {url: url, name: tag}
+        breadcrumb << {url: url, name: tag}
       end
     end
 
