@@ -1,7 +1,5 @@
 import { setting } from 'discourse/lib/computed';
 
-var get = Ember.get;
-
 export default Ember.Component.extend({
   classNameBindings: [':tag-drop', 'tag::no-category', 'tags:has-drop','categoryStyle','tagClass'],
   categoryStyle: setting('category_style'), // match the category-drop style

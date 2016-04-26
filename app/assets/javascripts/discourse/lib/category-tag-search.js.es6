@@ -17,18 +17,18 @@ function searchTags(term, categories, limit) {
       resolve(CANCELLED_STATUS);
     }, 5000);
 
-    const debouncedSearch = _.debounce((term, categories, resultFunc) => {
+    const debouncedSearch = _.debounce((q, cats, resultFunc) => {
       oldSearch = $.ajax(Discourse.getURL("/tags/filter/search"), {
         type: 'GET',
         cache: true,
-        data: { limit: limit, q: term }
+        data: { limit: limit, q }
       });
 
       var returnVal = CANCELLED_STATUS;
 
       oldSearch.then((r) => {
         var tags = r.results.map((tag) => { return { text: tag.text, count: tag.count }; });
-        returnVal = categories.concat(tags);
+        returnVal = cats.concat(tags);
       }).always(() => {
         oldSearch = null;
         resultFunc(returnVal);
